@@ -1,0 +1,13 @@
+{
+  "name": "mm-boilerplate",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "compass-breakpoint": "breakpoint-sass#~2.6.1"
+  }
+}
