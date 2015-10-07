@@ -1,0 +1,16 @@
+//Backgrounds
+
+//Sky Blue Background
+.sky-blue-bg{
+	@include background-image(linear-gradient($body-bg 0, $body-bg-fade 50%, transparent 90%));
+}
+
+//Green Hill Background
+.green-hill-bg{
+	@include background-image(linear-gradient($green-hill 0, $green-hill-gradient 100%, transparent 100%));
+}
+
+//Uneven Barn Background
+.barn-uneven-bg{
+	background:url(../images/barn-uneven.png) repeat;
+}
