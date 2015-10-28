@@ -9,6 +9,8 @@ var processhtml  = require('gulp-minify-html');
 var sass         = require('gulp-sass');
 var watch        = require('gulp-watch');
 var minifycss    = require('gulp-minify-css');
+var imagemin     = require('gulp-imagemin');
+var pngquant     = require('imagemin-pngquant');
 var uglify       = require('gulp-uglify');
 var streamify    = require('gulp-streamify');
 var prod         = gutil.env.prod;
@@ -46,6 +48,22 @@ gulp.task('html', function() {
     .pipe(browserSync.stream());
 });
 
+
+gulp.task('copyfonts', function() {
+  gulp.src('./src//fonts/**/*.{ttf,woff,eof,svg}').pipe(gulp.dest('./build/fonts'));
+});
+
+gulp.task('imagemin', function(){
+  return gulp.src('src/images/*')
+    .pipe(imagemin({
+      progressive: true,
+      svgoPlugins: [{removeViewBox: false}],
+      use: [pngquant()]
+    }))
+    .pipe(gulp.dest('./build/images'));
+});
+
+
 // sass
 gulp.task('sass', function() {
   return gulp.src('./src/scss/**/*.scss')
@@ -71,4 +89,4 @@ gulp.task('serve', function() {
 });
 
 // use gulp-sequence to finish building html, sass and js before first page load
-gulp.task('default', gulpSequence(['html', 'sass', 'js'], 'serve'));
+gulp.task('default', gulpSequence(['html', 'copyfonts', 'imagemin', 'sass', 'js'], 'serve'));
