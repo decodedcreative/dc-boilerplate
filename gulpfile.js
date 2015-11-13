@@ -1,7 +1,8 @@
 var
 	gulp = require('gulp'),
 	sass = require('gulp-ruby-sass'),
-	sourcemaps = require('gulp-sourcemaps');
+	sourcemaps = require('gulp-sourcemaps'),
+	browserSync = require("browser-sync").create();
 
 gulp.task('sass', function () {
   return sass('scss/app.scss', { sourcemap: true })
