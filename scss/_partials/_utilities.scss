@@ -5,4 +5,13 @@
 
 .test{
 	color:red;
+	box-sizing: border-box;
+	background:blue;
+	transition: width 2s;
+	width:100px;
+	padding:15px;
+
+	&:hover{
+		width:200px;
+	}
 }
