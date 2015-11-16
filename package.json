@@ -16,12 +16,31 @@
     "url": "https://github.com/decodedcreative/dc-boilerplate/issues"
   },
   "homepage": "https://github.com/decodedcreative/dc-boilerplate#readme",
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "browser": {
+    "jquery": "./node_modules/jquery/dist/jquery.js"
+  },
+  "browserify-shim": {
+    "jquery": {
+      "exports": "$"
+    },
+    "jquery-placeholder": {
+      "depends": "jquery",
+      "exports": null
+    }
+  },
   "dependencies": {
     "gulp": "^3.9.0"
   },
   "devDependencies": {
     "browser-sync": "^2.10.0",
     "browserify": "^12.0.1",
+    "browserify-shim": "^3.8.11",
+    "fastclick": "^1.0.6",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-browserify": "^0.5.1",
     "gulp-concat": "^2.6.0",
@@ -39,7 +58,9 @@
     "gulp-util": "^3.0.7",
     "imagemin-pngquant": "^4.2.0",
     "jquery": "^2.1.4",
+    "jquery-placeholder": "^2.1.1",
     "jshint-stylish": "^2.1.0",
+    "simplestatemanager": "^3.0.0",
     "vinyl-source-stream": "^1.1.0"
   }
 }
