@@ -1,8 +1,9 @@
 var
 clientname = {},
-$ = require("jquery"),
-placeholder = require("jquery-placeholder"),
+$ = require('jquery'),
+placeholder = require('jquery-placeholder'),
 ssm = require('simplestatemanager')(window),
+wowjs = require('wow'),
 attachFastClick = require('fastclick');
 attachFastClick(document.body);
 
@@ -16,13 +17,32 @@ clientname.website = (function(){
   	console.log("desktop");
   },
 
-  initPlugins = function(){
-
+  setupPlaceholderPolyfill = function(){
+	
 	//-- Initialise JQuery Placeholder -------------------------------------
 	//----------------------------------------------------------------------
 	$('input, textarea').placeholder();
 	//----------------------------------------------------------------------
 
+  },
+
+  setupOnScrollAnimations = function(){
+
+	wow = new WOW({
+		boxClass:     'wow',      // default
+		animateClass: 'animated', // default
+		offset: 0,	// default
+		mobile: true,	// default
+		live: true	// default
+    });
+
+    wow.init();
+
+  },
+
+  initPlugins = function(){
+  	setupPlaceholderPolyfill();
+  	setupOnScrollAnimations();
   };
 
   return{

@@ -10,11 +10,16 @@ var
 	jshint = require('gulp-jshint'),
 	stylish = require('jshint-stylish'),
 	ignore = require('gulp-ignore'),
+	through = require('through2'),
+	source = require('vinyl-source-stream'),
+	buffer = require('vinyl-buffer'),
+	globby = require('globby'),
+	gutil = require('gulp-util'),
 	concat = require('gulp-concat'),
 	imagemin = require('gulp-imagemin'),
 	pngquant = require('imagemin-pngquant'),
 	gulpSequence = require('gulp-sequence'),
-	browserify = require('gulp-browserify'),
+	browserify = require('browserify'),
 	browserSync = require("browser-sync").create();
 
 gulp.task('sass', function () {
@@ -22,7 +27,7 @@ gulp.task('sass', function () {
     .on('error', sass.logError)
 
     .pipe(plumber())
-		.pipe(autoprefixer({
+	.pipe(autoprefixer({
       browsers: ["last 4 versions", "Firefox >= 27", "Blackberry >= 7", "IE 8", "IE 9"],
       cascade: false
     }))
@@ -37,12 +42,12 @@ gulp.task('sass', function () {
       sourceRoot: 'scss'
     }))
 
-		.on('error', function(e) {
+	.on('error', function(e) {
       console.log(e);
     })
 
-		.pipe(gulp.dest("dist/css"))
-		.pipe(browserSync.stream());
+	.pipe(gulp.dest("dist/css"))
+	.pipe(browserSync.stream());
 });
 
 gulp.task('images', () => {
@@ -59,34 +64,69 @@ gulp.task('copyfonts', function() {
   gulp.src('fonts/**/*.{ttf,woff,eof,svg}').pipe(gulp.dest('dist/fonts'));
 });
 
-gulp.task('js', function() {
+gulp.task('lint', function() {
     gulp.src([ 'js/**/*.js' ])
-		.pipe(sourcemaps.init())
-		.pipe(jshint())
-		.pipe(jshint.reporter(stylish))
-		.pipe(browserify())
-		.pipe(concat("app.js"))
-    .pipe(ignore.exclude([ "**/*.map" ]))
-    .pipe(uglify().on('error', function(e) { console.log('\x07',e.message); return this.end(); }))
-		.pipe(sourcemaps.write('maps'))
-    .pipe(gulp.dest("dist/js"));
+	.pipe(jshint())
+	.pipe(jshint.reporter(stylish))
 });
+
+gulp.task('js', function () {
+  // gulp expects tasks to return a stream, so we create one here.
+  var bundledStream = through();
+
+  bundledStream
+    // turns the output bundle stream into a stream containing
+    // the normal attributes gulp plugins expect.
+    .pipe(source('app.js'))
+
+    // the rest of the gulp task, as you would normally write it.
+    // here we're copying from the Browserify + Uglify2 recipe.
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
+    	// Add gulp plugins to the pipeline here.
+      	.pipe(uglify())
+      	.on('error', gutil.log)
+    .pipe(sourcemaps.write('maps'))
+    .pipe(gulp.dest('./dist/js/'));
+
+  // "globby" replaces the normal "gulp.src" as Browserify
+  // creates it's own readable stream.
+  globby(['./js/*.js']).then(function(entries) {
+    // create the Browserify instance.
+    var b = browserify({
+      entries: entries,
+      debug: true,
+      paths: ['./node_modules','./js/']
+    });
+
+    // pipe the Browserify stream into the stream we created earlier
+    // this starts our gulp pipeline.
+    b.bundle().pipe(bundledStream);
+  }).catch(function(err) {
+    // ensure any errors from globby are handled
+    bundledStream.emit('error', err);
+  });
+
+  // finally, we return the stream, so gulp knows when this task is done.
+  return bundledStream;
+});
+
 
 gulp.task('html', function () {
     return gulp.src('./*.html')
-	   .pipe(processhtml())
-	   .pipe(gulp.dest('dist'))
-		 .pipe(browserSync.stream());
+		.pipe(processhtml())
+		.pipe(gulp.dest('dist'))
+		.pipe(browserSync.stream());
 });
 
 // Static Server + watching scss/html files
-gulp.task('serve', ['sass', 'html', 'js'], function() {
+gulp.task('serve', ['sass', 'html', 'lint', 'js'], function() {
     browserSync.init({
         server: "./dist"
     });
-		gulp.watch('./*.html', ['html']);
-		gulp.watch('./js/**/*.js', ['js']);
-		gulp.watch('./scss/**/*.scss', ['sass']);
+	gulp.watch('./*.html', ['html']);
+	gulp.watch('./js/**/*.js', ['lint','js']);
+	gulp.watch('./scss/**/*.scss', ['sass']);
 });
 
-gulp.task('default', gulpSequence(['sass', 'html', 'images', 'copyfonts', 'js'], 'serve'));
+gulp.task('default', gulpSequence(['sass', 'html', 'images', 'copyfonts', 'lint', 'js'], 'serve'));
