@@ -23,11 +23,15 @@
   },
   "browser": {
     "jquery": "./node_modules/jquery/dist/jquery.js",
+    "bootstrap": "./node_modules/bootstrap-sass/assets/javascripts/bootstrap.js",
     "wow": "./node_modules/wow/dist/wow.js"
   },
   "browserify-shim": {
     "jquery": {
       "exports": "$"
+    },
+    "bootstrap": {
+      "depends": "jquery"
     },
     "wow": {
       "exports": "WOW"
@@ -41,6 +45,7 @@
     "gulp": "^3.9.0"
   },
   "devDependencies": {
+    "bootstrap-sass": "^3.3.5",
     "browser-sync": "^2.10.0",
     "browserify": "^12.0.1",
     "browserify-shim": "^3.8.11",

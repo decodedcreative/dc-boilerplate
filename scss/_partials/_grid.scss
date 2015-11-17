@@ -1,0 +1,11 @@
+.inner-container{
+	@extend .container;
+	padding-left:15px;
+	padding-right:15px;
+}
+
+.container{
+	&.no-padding{
+		padding:0;
+	}
+}

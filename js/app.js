@@ -1,6 +1,7 @@
 var
 clientname = {},
 $ = require('jquery'),
+bootstrap = require('bootstrap'),
 placeholder = require('jquery-placeholder'),
 ssm = require('simplestatemanager')(window),
 wowjs = require('wow'),
@@ -42,7 +43,7 @@ clientname.website = (function(){
 
   initPlugins = function(){
   	setupPlaceholderPolyfill();
-  	setupOnScrollAnimations();
+  	//setupOnScrollAnimations();
   };
 
   return{
