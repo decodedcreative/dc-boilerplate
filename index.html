@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,8 +12,8 @@
 		<form role="form" class="form-horizontal">
 			<fieldset class="form-group">
 				<label for="name">Name</label>
-				<input type="text" ng-model="name" class="form-control" value="" />
-				<span>Hello name</span>
+				<input type="text" ng-model="yourName" class="form-control" value="" />
+				<span>Hello {{ yourName }}</span>
 			</fieldset>
 		</form>
 	</div>
