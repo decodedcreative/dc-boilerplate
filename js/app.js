@@ -1,74 +1,50 @@
 var
-clientname = {},
+clientname = window.clientname = window.clientname || {},
 $ = require('jquery'),
 placeholder = require('jquery-placeholder'),
 ssm = require('simplestatemanager')(window),
-wowjs = require('wow'),
 attachFastClick = require('fastclick');
 attachFastClick(document.body);
 
-clientname.website = (function(){
-  var
-  onEnterMobile = function(){
-  	console.log("mobile");
-  },
 
-  onEnterDesktop = function(){
-  	console.log("desktop");
-  },
+clientname.website = (function () {
+	var
+	common = {
+		variableOne: 'var1'
+	},
 
-  setupPlaceholderPolyfill = function(){
-	
-	//-- Initialise JQuery Placeholder -------------------------------------
-	//----------------------------------------------------------------------
-	$('input, textarea').placeholder();
-	//----------------------------------------------------------------------
+	myFirstMethod = function(){
+		console.log(common.variableOne);
+	},
 
-  },
+	onEnterDesktop = function(){
+		console.log("Entered Desktop State");
+	},
 
-  setupOnScrollAnimations = function(){
+	onEnterMobile =  function(){
+		console.log("Entered Mobile State");
+	};
 
-	wow = new WOW({
-		boxClass:     'wow',      // default
-		animateClass: 'animated', // default
-		offset: 0,	// default
-		mobile: true,	// default
-		live: true	// default
-    });
+    return {
+        common: common,
+        myFirstMethod: myFirstMethod,
 
-    wow.init();
+        init: function(){
 
-  },
+			ssm.addState({
+				id: 'mobile',
+				query: '(max-width: 667px)',
+				onEnter: onEnterMobile
+			});
 
-  initPlugins = function(){
-  	setupPlaceholderPolyfill();
-  	setupOnScrollAnimations();
-  };
+			ssm.addState({
+				id: 'desktop',
+				query: '(min-width: 668px)',
+				onEnter: onEnterDesktop
+			});
+        }
+    };
+})();
 
-  return{
-    init: function(){
-
-    	//-- Set up breakpoints for mobile and desktop in the javascript--------
-		//----------------------------------------------------------------------
-
-		ssm.addState({
-			id: 'mobile',
-			query: '(max-width: 667px)',
-			onEnter: onEnterMobile
-		});
-
-		ssm.addState({
-			id: 'desktop',
-			query: '(min-width: 668px)',
-			onEnter: onEnterDesktop
-		});
-
-		//----------------------------------------------------------------------
-
-		initPlugins();
-
-    }
-  };
-}());
 
 $(window).load(clientname.website.init);
