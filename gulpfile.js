@@ -50,14 +50,14 @@ gulp.task('sass', function () {
 	.pipe(browserSync.stream());
 });
 
-gulp.task('images', () => {
-    return gulp.src('images/*')
-        .pipe(imagemin({
-            progressive: true,
-            svgoPlugins: [{removeViewBox: false}],
-            use: [pngquant()]
-        }))
-        .pipe(gulp.dest('dist/images'));
+gulp.task('images', function(){
+  gulp.src('images/*')
+  .pipe(imagemin({
+      progressive: true,
+      svgoPlugins: [{removeViewBox: false}],
+      use: [pngquant()]
+  }))
+  .pipe(gulp.dest('dist/images'));
 });
 
 gulp.task('copyfonts', function() {
