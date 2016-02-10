@@ -1,7 +1,6 @@
 var
 clientname = window.clientname = window.clientname || {},
 $ = require('jquery'),
-placeholder = require('jquery-placeholder'),
 ssm = require('simplestatemanager')(window),
 attachFastClick = require('fastclick');
 attachFastClick(document.body);

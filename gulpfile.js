@@ -5,7 +5,7 @@ var
 	processhtml = require('gulp-processhtml'),
 	uglify = require('gulp-uglify'),
 	autoprefixer = require('gulp-autoprefixer'),
-	minifycss = require('gulp-minify-css'),
+	cssnano = require('gulp-cssnano'),
 	plumber = require('gulp-plumber'),
 	jshint = require('gulp-jshint'),
 	stylish = require('jshint-stylish'),
@@ -31,7 +31,7 @@ gulp.task('sass', function () {
       browsers: ["last 4 versions", "Firefox >= 27", "Blackberry >= 7", "IE 8", "IE 9"],
       cascade: false
     }))
-    .pipe(minifycss())
+    .pipe(cssnano())
 
     // For inline sourcemaps
     .pipe(sourcemaps.write())
