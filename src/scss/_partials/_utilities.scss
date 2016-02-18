@@ -1,8 +1,20 @@
 .responsive-img{
-  display:block;
+  display:inline-block;
   max-width: 100%;
+  vertical-align: bottom;
+}
+
+.row{
+  &.valign-center{
+    align-items: center;
+  }
 }
 
 [class^="col"]{
   box-sizing:border-box;
+
+  @include media-breakpoint-down(xs){
+    text-align:center;
+    margin-bottom:$grid-gutter-width / 2;
+  }
 }
