@@ -38,6 +38,12 @@ gulp.task('sass', function () {
 	.pipe(browserSync.stream());
 });
 
+gulp.task('lint', function() {
+  gulp.src([ 'js/**/*.js' ])
+  .pipe(jshint())
+  .pipe(jshint.reporter(stylish))
+});
+
 gulp.task('serve', function() {
     browserSync.init({
         server: {
@@ -45,6 +51,7 @@ gulp.task('serve', function() {
         }
     });
     gulp.watch('src/scss/**/*.scss', ['sass']);
+    gulp.watch('src/js/**/*.js', ['lint']);
 });
 
 // or...
@@ -53,6 +60,8 @@ gulp.task('serve', function() {
 //     browserSync.init({
 //         proxy: "yourlocal.dev"
 //     });
+//    gulp.watch('src/scss/**/*.scss', ['sass']);
+//    gulp.watch('src/js/**/*.js', ['lint']);
 // });
 
-gulp.task('default', ['sass', 'serve']);
+gulp.task('default', ['sass', 'lint', 'serve']);
