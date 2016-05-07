@@ -1,3 +1,7 @@
+*, *:after, *:before {
+	box-sizing: border-box;
+}
+
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 
 //
@@ -11,15 +15,24 @@ html {
   -ms-text-size-adjust: 100%; // 2
   -webkit-text-size-adjust: 100%; // 2
   font-size:62.5%;
+  height:100%;
 }
 
 //
 // Remove default margin.
 //
 
-body {
+body, ul, ul>li, h1, h2, h3, h4,h5, p, figure, dl, dl dt, dl dd{
   margin: 0;
+  padding:0;
 }
+
+
+ul, ul li{
+  list-style:none;
+  @include clearfix();
+}
+
 
 // HTML5 display definitions
 // ==========================================================================
@@ -89,6 +102,8 @@ template {
 
 a {
   background-color: transparent;
+  text-decoration: none;
+  color:currentColor;
 }
 
 //
@@ -136,7 +151,6 @@ dfn {
 
 h1 {
   font-size: 2em;
-  margin: 0.67em 0;
 }
 
 //
@@ -185,6 +199,7 @@ sub {
 
 img {
   border: 0;
+  vertical-align: bottom;
 }
 
 //
@@ -203,7 +218,8 @@ svg:not(:root) {
 //
 
 figure {
-  margin: 1em 40px;
+  margin:0;
+  padding:0;
 }
 
 //
@@ -258,6 +274,7 @@ textarea {
   color: inherit; // 1
   font: inherit; // 2
   margin: 0; // 3
+  outline:none;
 }
 
 //
@@ -266,6 +283,13 @@ textarea {
 
 button {
   overflow: visible;
+  border:none;
+  background-color:transparent;
+  padding:0;
+
+  &:focus{
+    outline:none;
+  }
 }
 
 //
@@ -322,6 +346,7 @@ input::-moz-focus-inner {
 
 input {
   line-height: normal;
+  box-sizing:border-box;
 }
 
 //
@@ -375,9 +400,9 @@ input[type="search"]::-webkit-search-decoration {
 //
 
 fieldset {
-  border: 1px solid #c0c0c0;
-  margin: 0 2px;
-  padding: 0.35em 0.625em 0.75em;
+  margin: 0;
+  padding: 0;
+  border:0;
 }
 
 //

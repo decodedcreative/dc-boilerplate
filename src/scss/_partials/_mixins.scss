@@ -1,0 +1,23 @@
+// Clearfix
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: "\0020";
+    display: block;
+    height: 0;
+    overflow: hidden;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+// CSS image replacement
+
+@mixin hide-text(){
+  font-size:0;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
