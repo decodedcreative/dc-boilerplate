@@ -1,1 +1,0 @@
-{"version":3,"sources":["js/app.js"],"names":["test"],"mappings":";;AAAA,IAAMA,OAAO,aAAb","file":"app.js","sourcesContent":["const test = \"Hello World\";"],"sourceRoot":"/source/"}
