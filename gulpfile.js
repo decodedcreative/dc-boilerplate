@@ -4,6 +4,7 @@ var gulp = require('gulp'),
     source = require('vinyl-source-stream'),
     gutil = require('gulp-util');
     cssnano = require('gulp-cssnano'),
+    autoprefixer = require('gulp-autoprefixer'),
     sass = require('gulp-ruby-sass'),
     notify = require('gulp-notify'),
     sourcemaps = require('gulp-sourcemaps');
@@ -53,6 +54,7 @@ gulp.task('es6', function() {
 
 gulp.task('watch',function() {
 	gulp.watch('./src/js/**/*.js',{debounceDelay: 5000},['es6'])
+    gulp.watch("src/scss/**/*.scss", ['sass'])
 });
  
-gulp.task('default', ['es6', 'watch']);
+gulp.task('default', ['es6', 'sass', 'watch']);

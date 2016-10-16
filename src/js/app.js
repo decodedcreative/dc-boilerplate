@@ -1,6 +1,5 @@
 import Carousel from './modules/Carousel';
 
-const text = "Hello World";
 const carouselCollection = document.querySelectorAll('.carousel');
 
 carouselCollection.forEach((item) => {
@@ -9,7 +8,5 @@ carouselCollection.forEach((item) => {
 	});
 	carousel.setup();
 });
-
-
 
 

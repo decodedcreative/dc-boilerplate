@@ -1,0 +1,42 @@
+/*==========================================
+  GRID
+==========================================*/ 
+
+$gridColumns: 12;
+$gridGutterWidth: 20;
+$gutter: #{$gridGutterWidth}px;
+
+
+/*==========================================
+  LAYOUT
+==========================================*/ 
+
+$sectionPadding: 50px;
+
+
+/*==========================================
+  BREAKPOINTS & WIDTHS
+==========================================*/ 
+
+$screenXS: 480px;
+$screenS: 768px;
+$screenM: 992px;
+$screenL: 1200px;
+$screenXL: 1440px;
+$max-width: 1200px;
+
+
+/*==========================================
+  COLOURS
+==========================================*/ 
+
+
+$primary: #82368C;
+$blue: #007bc3;
+$green: #00864e;
+$grey: #3E3E3E;
+$lightgrey: #CDCDCD;
+$midgrey:#9C9C9C;
+$darkgrey:#979797;
+$purple: $primary;
+$darkpurple: #410649;

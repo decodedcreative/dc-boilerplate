@@ -1,0 +1,47 @@
+/*==========================================
+  
+  GRID
+
+==========================================*/ 
+
+.row{
+	display: flex;
+	flex-wrap: wrap;
+	@extend %clearfix;
+}
+
+.col{
+	position: relative;
+	flex-basis: 0;
+	flex-grow: 1;
+	max-width: 100%;
+	min-height: 1px;
+	padding-left: #{($gridGutterWidth / 2)}px;
+	padding-right: #{($gridGutterWidth / 2)}px;
+	box-sizing:border-box;
+	@extend %clearfix;
+
+
+	@include bp(lt-s){
+		flex: 0 0 100%;
+	}
+}
+
+.container{
+	margin-left:auto;
+	margin-right:auto;
+	max-width: $max-width;
+	box-sizing:border-box;
+	padding-left: $gutter;
+	padding-right: $gutter;
+}
+
+.narrow-container{
+	@extend .container;
+	max-width:840px;
+}
+
+.wide-container{
+	@extend .container;
+	max-width: $screenXL;
+}

@@ -1,0 +1,44 @@
+.carousel {
+	display:flex;
+	align-items: center;
+	margin-bottom:$sectionPadding;
+	padding:0;
+
+	&.loaded{
+		.carousel-items{
+			flex-basis: calc(100% - 110px);
+
+			li{
+				position:absolute;
+				z-index:1;
+
+				&.active{
+					z-index:2;
+				}
+			}
+		}
+
+		.arrow{
+			display:flex;
+		}
+	}
+
+	.carousel-items{
+		order:2;
+		position:relative;
+	}
+
+	.arrow{
+		width:55px;
+		display:none;
+
+		&.prev{
+			order:1;
+		}
+
+		&.next{
+			order:3;
+		}
+	}
+
+}

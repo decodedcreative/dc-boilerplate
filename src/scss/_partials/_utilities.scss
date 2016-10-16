@@ -1,6 +1,33 @@
-.responsive-img{
+/*--Placeholders---------------------------------------*/
+
+%responsive-img{
 	max-width:100%;
 	display:block;
 }
 
+%clearfix {
+    clear: both;
 
+	&:before,
+	&:after {
+		content: "";
+		display: table;
+	}
+
+	&:after {
+		clear:both;
+	}
+	
+}
+
+/*------------------------------------------------------------*/
+
+
+
+/*==========================================
+  COLOURS
+==========================================*/ 
+
+.bg-blue{
+	background-color:$blue;
+}

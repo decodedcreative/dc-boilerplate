@@ -1,23 +1,66 @@
 class Carousel {
+	
 	// set up instance variables
-	constructor(options){
+
+	constructor (options) {
 		
 		this.element = options.element;
-		//this.canvas = options.canvas;
-		//this.ctx = options.context;
-		//this.universe = options.universe;
-		//this.universeElem = document.getElementById('universe');
-		//this.speed = options.speed;
+		this.carousel = options.element.querySelectorAll('ul');
+		this.carouselSlides = this.carousel[0].children;
+		this.carouselHeight = 0;
+
 	}
+
+	resize () {
+
+		// Get tallest slide
+
+		Array.prototype.map.call( this.carouselSlides, ( slide ) => {
+			this.carouselHeight = (slide.offsetHeight > this.carouselHeight) ? slide.offsetHeight : this.carouselHeight;
+		});
+
+
+
+		//Set the height of the carousel to the height of its tallest slide
+
+		this.carousel[0].style.height = this.carouselHeight+'px';
+
+
+		
+		//Reset the height of the carousel to zero
+
+		this.carouselHeight = 0;
+
+	}
+
+
 	// initial set up
-	setup() {
-		// Note: using bind to pass the class' context to the callbacks
-		console.log(this.element);
-		// not sure if this can be improved.
-		//this.universeElem.addEventListener('click', loopCells.bind(this));
-		// when user click, start the game
-		//document.getElementById('start').addEventListener('click', this.play.bind(this));
+
+	setup () {
+		
+		// Carousel shows as list of images without JS. With JS enabled (on load) add 'loaded' CSS class to carousel to invoke carousel styles
+		
+		this.element.classList.add("loaded");
+
+
+
+		// Add active class to the first slide in the carousel
+
+		this.carousel[0].firstElementChild.classList.add("active");
+
+
+		// Run resize function which calculates the height of the tallest slide in the carousel and sets the height of the carousel to this value
+		
+		this.resize();
+
+
+		// When the browser is resized, run the resize function
+
+		window.addEventListener("resize", this.resize.bind(this));
+	
 	}
+
+
 
 }
 
