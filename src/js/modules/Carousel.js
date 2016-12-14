@@ -1,7 +1,7 @@
 class Carousel {
 	// set up instance variables
 	constructor (options) {
-		
+
 		this.element = options.element;
 		this.carousel = options.element.querySelectorAll('ul');
 		this.carouselNav = options.element.querySelectorAll('button');
@@ -25,31 +25,31 @@ class Carousel {
 		self.carouselHeight = 0;
 
 	}
-	
-	
+
+
 	getActiveSlide () {
-		
+
 		let activeSlide;
-		
-		//Get currently active slide 
+
+		//Get currently active slide
 		for (let slide of self.carousel[0].children){
-			
+
 			if ( slide.classList.contains('active') === true ) {
 				activeSlide = slide;
 			}
 		}
-		
+
 		return activeSlide;
-		
+
 	}
-	
+
 	changeSlide () {
-		
+
 		let activeSlide = self.getActiveSlide(),
 			direction = null,
 			lastSlide = null,
 			firstSlide = null;
-		
+
 		for ( let slide of self.carouselSlides){
 			slide.classList.remove('active');
 		}
@@ -60,57 +60,57 @@ class Carousel {
 			direction = "next";
 		}
 
-		
+
 		if( direction === 'previous' ) {
 
 			if( activeSlide.previousElementSibling !== null){
-				
+
 				activeSlide.previousElementSibling.classList.add('active');
-				
+
 			} else {
-				
+
 				lastSlide = self.carousel[0].children[self.carousel[0].children.length - 1];
 				lastSlide.classList.add('active');
-				
+
 			}
-			
+
 		} else if (direction === 'next' ) {
-			
+
 			if( activeSlide.nextElementSibling !== null){
-				
+
 				activeSlide.nextElementSibling.classList.add('active');
-				
+
 			} else {
-				
+
 				firstSlide = self.carousel[0].children[0];
 				firstSlide.classList.add('active');
-				
+
 			}
 
 		}
-		
 
-		
+
+
 	}
 
 	// initial set up
 	setup () {
-		
+
 		// Run the resize function to give the carousel the height of its tallest slide
 		self.resize();
 
 		this.element.classList.add("loaded");
-		
+
 		// Add an active class to the first slide
 		self.carouselSlides[0].classList.add('active');
-		
+
 		// On resize adjust the height of the carousel
 		window.onresize = this.resize.bind(this);
-		
+
 		for (let button of self.carouselNav){
 			button.addEventListener('click', self.changeSlide);
 		}
-		
+
 
 	}
 }
